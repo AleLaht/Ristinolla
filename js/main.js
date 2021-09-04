@@ -6,18 +6,7 @@ let board = [
     '', '', '',
     '', '', ''
 ]
-
-
-const gameboard = {
-    tiles: Array.from(document.querySelectorAll('.tile')),
-    board: [
-        '', '', '',
-        '', '', '',
-        '', '', ''
-    ]
-}
-
-let tile1 = tiles[0];
+let error = 'Error!';
 
 // change current player
 let changeCurrentPlayer = () => {
@@ -26,7 +15,7 @@ let changeCurrentPlayer = () => {
     } else if (currentPlayer === 'O') {
         currentPlayer = 'X';
     } else {
-        return 'Error!'
+        return error
     }
 }
 
@@ -36,14 +25,16 @@ let changeCurrentPlayer = () => {
 
 for (let i = 0; i < tiles.length; i++) {
     tiles[i].onclick = function(handleClick) {
-        tiles.forEach((el) => {
-            board[el[0]] = el[1];
-        });
-        this.innerHTML = currentPlayer
-        changeCurrentPlayer();
+        
+        // Check if tile already has data
+        if (this.innerHTML === '') {
+            tiles.forEach((el) => {
+                board[el[0]] = el[1];
+            });
+            this.innerHTML = currentPlayer
+            changeCurrentPlayer();
+        } 
     };
 }
 
-console.log(gameboard.tiles);
-console.log(board)
 
